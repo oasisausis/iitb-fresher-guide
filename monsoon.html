@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surviving Monsoons | IITB Physics</title>
+    <style>
+        :root {
+            --primary-glow: #00e5ff; /* Ocean Blue */
+            --secondary-glow: #0077ff; /* Deep Blue */
+            --alert-glow: #ffcc00; /* Yellow for raincoat/warning */
+            --dark-bg: #0b101a;
+            --card-bg: rgba(15, 23, 42, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            padding: 2rem;
+            background-image: 
+                linear-gradient(to bottom, rgba(11, 16, 26, 0.9), rgba(11, 16, 26, 0.95)),
+                url('https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?auto=format&fit=crop&w=1920&q=80'); /* Rainy background */
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        nav {
+            margin-bottom: 3rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        nav a {
+            color: var(--primary-glow);
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(45deg, #fff, var(--primary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Monsoon Warning Box */
+        .warning-box {
+            background: rgba(255, 204, 0, 0.1);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            border-left: 5px solid var(--alert-glow);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .warning-box h2 {
+            color: var(--alert-glow);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .warning-box p {
+            color: #e2e8f0;
+            line-height: 1.6;
+            font-size: 1.05rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Pointers Grid */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tip-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid var(--primary-glow);
+            border-radius: 10px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 229, 255, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .tip-card:nth-child(even) { border-top-color: var(--secondary-glow); }
+
+        .tip-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tip-card p {
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .map-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--primary-glow);
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .map-btn:hover {
+            background: rgba(0, 229, 255, 0.1);
+            border-color: var(--primary-glow);
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .tips-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">← Back to Survival Guide</a>
+    </nav>
+
+    <h1>Surviving Monsoons in Mumbai</h1>
+
+    <div class="container">
+        
+        <div class="warning-box">
+            <h2>☔ Essential Packing Reminder</h2>
+            <p>It rains cats and dogs in Mumbai during this time! When coming to campus, you <strong>must</strong> pack sturdy umbrellas and high-quality raincoats.</p>
+            <p><strong>Pro-tip:</strong> Ensure all your electronics, laptops, and important documents are packed in waterproof bags or layers before you travel.</p>
+        </div>
+
+        <div class="tips-grid">
+            
+            <div class="tip-card">
+                <h3>🛏️ Leave the Bedding at Home</h3>
+                <p>Do not waste luggage space bringing mattresses or pillows. These are readily sold by vendors just outside the hostels, especially on the main road outside H15 and H16.</p>
+            </div>
+
+            <div class="tip-card">
+                <h3>🪣 Daily Essentials (H12/13/14)</h3>
+                <p>Need buckets, mugs, toiletries, or quick snacks? The shop cluster around the H12, H13, and H14 area has everything you need to set up your room.</p>
+                <a href="https://www.google.com/maps/search/?api=1&query=Hostel+12+IIT+Bombay" target="_blank" rel="noopener noreferrer" class="map-btn">
+                    📍 Open H12/13/14 in Maps
+                </a>
+            </div>
+
+            <div class="tip-card">
+                <h3>📓 Stationery & Copies (H1)</h3>
+                <p>For notebooks, pens, lab records, and immediate printing needs, head over to the Xerox and stationery shop located at Hostel 1.</p>
+                <a href="https://www.google.com/maps/search/?api=1&query=Hostel+1+IIT+Bombay" target="_blank" rel="noopener noreferrer" class="map-btn">
+                    📍 Open H1 in Maps
+                </a>
+            </div>
+
+            <div class="tip-card">
+                <h3>🏪 Dhun Convenience Store (H16)</h3>
+                <p>Located near Hostel 16, Dhun is a great campus convenience store for packaged foods, daily essentials, and late-night study cravings.</p>
+                <a href="https://www.google.com/maps/search/?api=1&query=Hostel+16+IIT+Bombay" target="_blank" rel="noopener noreferrer" class="map-btn">
+                    📍 Open H16 in Maps
+                </a>
+            </div>
+
+            <div class="tip-card" style="grid-column: 1 / -1; text-align: center;">
+                <h3 style="justify-content: center;">🛒 The Ultimate Grocery Run: DMart</h3>
+                <p>If you want to buy snacks, coffee, and room supplies in bulk at discounted rates, head just outside campus to the massive DMart in Hiranandani.</p>
+                <a href="https://www.google.com/maps/search/?api=1&query=DMart+Hiranandani+Powai" target="_blank" rel="noopener noreferrer" class="map-btn" style="width: auto; padding: 0.8rem 2rem;">
+                    📍 Open DMart Hiranandani in Maps
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
