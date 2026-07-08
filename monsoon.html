@@ -9,6 +9,7 @@
             --primary-glow: #00e5ff; /* Ocean Blue */
             --secondary-glow: #0077ff; /* Deep Blue */
             --alert-glow: #ffcc00; /* Yellow for raincoat/warning */
+            --danger-glow: #ff4757; /* Red for fungi warning */
             --dark-bg: #0b101a;
             --card-bg: rgba(15, 23, 42, 0.8);
         }
@@ -26,7 +27,7 @@
             padding: 2rem;
             background-image: 
                 linear-gradient(to bottom, rgba(11, 16, 26, 0.9), rgba(11, 16, 26, 0.95)),
-                url('https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?auto=format&fit=crop&w=1920&q=80'); /* Rainy background */
+                url('https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-attachment: fixed;
             min-height: 100vh;
@@ -120,6 +121,10 @@
         }
 
         .tip-card:nth-child(even) { border-top-color: var(--secondary-glow); }
+        
+        /* Special styling for the fungi card */
+        .fungi-card { border-top-color: var(--danger-glow) !important; }
+        .fungi-card:hover { border-color: rgba(255, 71, 87, 0.3) !important; }
 
         .tip-card h3 {
             font-size: 1.4rem;
@@ -182,6 +187,16 @@
 
         <div class="tips-grid">
             
+            <div class="tip-card fungi-card">
+                <h3>🍄 Beware the Dampness</h3>
+                <p>Mumbai's extreme humidity means things stay perpetually wet. Leather bags and damp clothes can quickly get ruined by fungi if left unattended in your cupboard. Additionally, <strong>food spoils much faster</strong> during this season—keep snacks sealed tight and don't hoard perishables.</p>
+            </div>
+
+            <div class="tip-card">
+                <h3>🧺 Hostel Laundry is Mandatory</h3>
+                <p>Air-drying clothes during the monsoon is nearly impossible and leads to a damp smell. Every hostel has an in-house laundry service. It is highly recommended to give them your clothes so they can be properly dried in their heavy-duty dryers.</p>
+            </div>
+
             <div class="tip-card">
                 <h3>🛏️ Leave the Bedding at Home</h3>
                 <p>Do not waste luggage space bringing mattresses or pillows. These are readily sold by vendors just outside the hostels, especially on the main road outside H15 and H16.</p>
