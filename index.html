@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IIT Bombay Master's Guide: Physics Edition</title>
+    <style>
+        :root {
+            --primary-glow: #00ffcc;
+            --secondary-glow: #b366ff;
+            --dark-bg: #0b0f19;
+            --card-bg: rgba(15, 23, 42, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            /* Using a placeholder for IITB - replace with your own local image if preferred */
+            background-image: linear-gradient(rgba(11, 15, 25, 0.85), rgba(11, 15, 25, 0.95)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Physics background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(0, 255, 204, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(179, 102, 255, 0.08) 0%, transparent 50%);
+        }
+
+        header {
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            color: var(--primary-glow);
+            font-family: monospace;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #fff, #a3b8cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255,255,255,0.1);
+        }
+
+        .equation {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 3rem;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-glow));
+            transition: all 0.5s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 204, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 255, 204, 0.1);
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-glow);
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Specific card color accents */
+        .card:nth-child(even) .card-icon { color: var(--secondary-glow); }
+        .card:nth-child(even):hover { border-color: rgba(179, 102, 255, 0.3); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(179, 102, 255, 0.1); }
+        .card:nth-child(even)::before { background: linear-gradient(90deg, transparent, var(--secondary-glow)); }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .grid-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles"></div>
+
+    <header>
+        <div class="subtitle">∇ × E = -∂B/∂t</div>
+        <h1>A Fresher's Guide to Surviving<br>Master's Life At IIT BOMBAY</h1>
+        <div class="equation">Physics Edition</div>
+    </header>
+
+    <div class="grid-container">
+        <!-- Card 1 -->
+        <a href="#courses" class="card">
+            <div class="card-icon">⚛️</div>
+            <h2>First Semester Courses</h2>
+            <p>Classical Mechanics, Quantum, and the art of staying awake in morning lectures.</p>
+        </a>
+
+        <!-- Card 2 -->
+        <a href="#grades" class="card">
+            <div class="card-icon">📊</div>
+            <h2>Grades?</h2>
+            <p>Understanding CPI, SPI, and why thermodynamics might ruin both.</p>
+        </a>
+
+        <!-- Card 3 -->
+        <a href="#food" class="card">
+            <div class="card-icon">☕</div>
+            <h2>Places to Eat</h2>
+            <p>From Hostel 13 mess to late-night Maggi at Maddu. Conserving energy through calories.</p>
+        </a>
+
+        <!-- Card 4 -->
+        <a href="#seniors" class="card">
+            <div class="card-icon">🔭</div>
+            <h2>What are my seniors up to?</h2>
+            <p>Research labs, placement prep, and existing in a state of quantum superposition.</p>
+        </a>
+
+        <!-- Card 5 -->
+        <a href="#monsoon" class="card">
+            <div class="card-icon">☔</div>
+            <h2>Surviving Monsoons</h2>
+            <p>Fluid dynamics in real life: navigating the flooded corridors of the Main Building.</p>
+        </a>
+
+        <!-- Card 6 -->
+        <a href="#transport" class="card">
+            <div class="card-icon">🛺</div>
+            <h2>Getting to IIT Bombay</h2>
+            <p>Calculating the optimal trajectory from Kanjurmarg or Andheri station.</p>
+        </a>
+    </div>
+
+    <script>
+        // Simple script to add some floating physics equations in the background
+        const equations = ['E=mc²', 'F=ma', 'λ=h/p', 'iℏ(∂Ψ/∂t)=HΨ', 'dS≥0', 'F=-kx'];
+        const particlesContainer = document.querySelector('.particles');
+
+        for(let i = 0; i < 15; i++) {
+            const eq = document.createElement('div');
+            eq.innerText = equations[Math.floor(Math.random() * equations.length)];
+            eq.style.position = 'absolute';
+            eq.style.left = Math.random() * 100 + 'vw';
+            eq.style.top = Math.random() * 100 + 'vh';
+            eq.style.opacity = Math.random() * 0.15;
+            eq.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            eq.style.fontFamily = 'serif';
+            eq.style.transform = `rotate(${Math.random() * 360}deg)`;
+            particlesContainer.appendChild(eq);
+        }
+    </script>
+</body>
+</html>
