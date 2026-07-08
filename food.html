@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Places to Eat | IITB Physics</title>
+    <style>
+        :root {
+            --primary-glow: #ff9e00; /* Warm orange for food */
+            --cheap-color: #00e676; /* Green */
+            --mod-color: #ffea00; /* Yellow */
+            --pricey-color: #ff1744; /* Red */
+            --veg-color: #4caf50;
+            --dark-bg: #0b101a;
+            --card-bg: rgba(20, 25, 35, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            padding: 2rem;
+            /* Fun hanging out spot background */
+            background-image: 
+                linear-gradient(to bottom, rgba(11, 16, 26, 0.85), rgba(11, 16, 26, 0.95)),
+                url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        nav {
+            margin-bottom: 3rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        nav a {
+            color: var(--primary-glow);
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(45deg, #fff, var(--primary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #cbd5e1;
+            margin-bottom: 3rem;
+            font-size: 1.2rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* Food Grid */
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .food-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .food-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 158, 0, 0.3);
+        }
+
+        .food-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1rem;
+        }
+
+        .food-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .badges {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: flex-end;
+        }
+
+        .badge {
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Price Indicators */
+        .badge.cheap { background: rgba(0, 230, 118, 0.15); color: var(--cheap-color); border: 1px solid var(--cheap-color); }
+        .badge.moderate { background: rgba(255, 234, 0, 0.15); color: var(--mod-color); border: 1px solid var(--mod-color); }
+        .badge.pricey { background: rgba(255, 23, 68, 0.15); color: var(--pricey-color); border: 1px solid var(--pricey-color); }
+        .badge.veg { background: rgba(76, 175, 80, 0.15); color: var(--veg-color); border: 1px solid var(--veg-color); }
+
+        .info-row {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .info-label {
+            font-size: 1.1rem;
+        }
+
+        .info-text {
+            color: #cbd5e1;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .info-text strong {
+            color: #e2e8f0;
+        }
+
+        .map-link {
+            display: inline-block;
+            margin-top: auto;
+            padding-top: 1rem;
+            color: var(--primary-glow);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .map-link:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        /* Quick Bites Section */
+        .quick-bites-section {
+            background: linear-gradient(145deg, rgba(20, 25, 35, 0.9), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(255, 158, 0, 0.3);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .quick-bites-section h2 {
+            font-size: 2rem;
+            color: var(--primary-glow);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quick-bite-card {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .quick-bite-card h3 {
+            color: #fff;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .quick-bite-card p {
+            color: #cbd5e1;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .food-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">← Back to Survival Guide</a>
+    </nav>
+
+    <h1>Places to Eat on Campus</h1>
+    <div class="subtitle">Conserving Energy via High-Calorie Intake</div>
+
+    <div class="container">
+        
+        <div class="food-grid">
+            
+            <div class="food-card">
+                <div class="food-header">
+                    <div class="food-title">Aromas (Aroma Dhaba)</div>
+                    <div class="badges">
+                        <span class="badge cheap">₹ Cheap</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">💡</span>
+                    <div class="info-text"><strong>Recommendation:</strong> Plain paratha with bhindi fry, chicken chaap, and chicken crispy.</div>
+                </div>
+                <a href="https://www.google.com/maps/search/Aroma+Dhaba+IIT+Bombay/" target="_blank" class="map-link">📍 View on Map</a>
+            </div>
+
+            <div class="food-card">
+                <div class="food-header">
+                    <div class="food-title">H2 Canteen</div>
+                    <div class="badges">
+                        <span class="badge cheap">₹ Cheap</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">💡</span>
+                    <div class="info-text"><strong>Recommendation:</strong> Chicken shawarma, paneer schezwan frankies, and biryani. Perfect for late nights.</div>
+                </div>
+                <a href="https://www.google.com/maps/search/Hostel+2+IIT+Bombay/" target="_blank" class="map-link">📍 View on Map</a>
+            </div>
+
+            <div class="food-card">
+                <div class="food-header">
+                    <div class="food-title">H5 Canteen</div>
+                    <div class="badges">
+                        <span class="badge cheap">₹ Cheap</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">💡</span>
+                    <div class="info-text"><strong>Recommendation:</strong> Classic Maggi and grilled sandwiches.</div>
+                </div>
+                <a href="https://www.google.com/maps/search/Hostel+5+IIT+Bombay/" target="_blank" class="map-link">📍 View on Map</a>
+            </div>
+
+            <div class="food-card">
+                <div class="food-header">
+                    <div class="food-title">H3 Canteen</div>
+                    <div class="badges">
+                        <span class="badge cheap">₹ Cheap</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">💡</span>
+                    <div class="info-text"><strong>Recommendation:</strong> Omelette pav and thick milkshakes.</div>
+                </div>
+                <a href="https://www.google.com/maps/search/Hostel+3+IIT+Bombay/" target="_blank" class="map-link">📍 View on Map</a>
+            </div>
+
+            <div class="food-card">
+                <div class="food-header">
+                    <div class="food-title">H12 Night Canteen</div>
+                    <div class="badges">
+                        <span class="badge cheap">₹ Cheap</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">💡</span>
+                    <div class="info-text"><strong>Recommendation:</strong> Schezwan fried rice and midnight cravings.</div>
+                </div>
+                <a href="https://www.google.com/maps/search/Hostel+12+IIT+Bombay/" target="_blank" class="map-link">📍 View on Map</a>
+            </div>
+
+            <div class="food-card">
+                <div class="food-header">
+                    <div class="food-title">Dosa Shop near YP Gate</div>
+                    <div class="badges">
+                        <span class="badge veg">🌱 Pure Veg</span>
+                        <span class="badge cheap">₹ Cheap</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">💡</span>
+                    <div class="info-text"><strong>Recommendation:</strong> Authentic Mysore Masala Dosa.</div>
+                </div>
+                <a href="https://www.google.com/maps/search/YP+Gate+IIT+Bombay/" target="_blank" class="map-link">📍 View on Map</a>
+            </div>
+
+            <div class="food-card">
+                <div class="food-header">
+                    <div class="food-title">Gulmohar Canteen</div>
+                    <div class="badges">
+                        <span class="badge veg">🌱 Pure Veg</span>
+                        <span class="badge moderate">₹₹ Moderate</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">💡</span>
+                    <div class="info-text"><strong>Recommendation:</strong> South Indian breakfast platters and fresh juices.</div>
+                </div>
+                <a href="https://www.google.com/maps/search/Gulmohar+IIT+Bombay/" target="_blank" class="map-link">📍 View on Map</a>
+            </div>
+
+            <div class="food-card">
+                <div class="food-header">
+                    <div class="food-title">LHC Food Court</div>
+                    <div class="badges">
+                        <span class="badge veg">🌱 Pure Veg</span>
+                        <span class="badge moderate">₹₹ Moderate</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">💡</span>
+                    <div class="info-text"><strong>Recommendation:</strong> Full Thali or Chole Bhature between classes.</div>
+                </div>
+                <a href="https://www.google.com/maps/search/Lecture+Hall+Complex+IIT+Bombay/" target="_blank" class="map-link">📍 View on Map</a>
+            </div>
+
+            <div class="food-card">
+                <div class="food-header">
+                    <div class="food-title">Cafe 97</div>
+                    <div class="badges">
+                        <span class="badge moderate">₹₹ Moderate</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">💡</span>
+                    <div class="info-text"><strong>Recommendation:</strong> Burgers, fries, and cold coffee.</div>
+                </div>
+                <a href="https://www.google.com/maps/search/Cafe+97+IIT+Bombay/" target="_blank" class="map-link">📍 View on Map</a>
+            </div>
+
+            <div class="food-card">
+                <div class="food-header">
+                    <div class="food-title">Domino's</div>
+                    <div class="badges">
+                        <span class="badge moderate">₹₹ Moderate</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">💡</span>
+                    <div class="info-text"><strong>Recommendation:</strong> Cheese Burst Pizzas for group study sessions.</div>
+                </div>
+                <a href="https://www.google.com/maps/search/Dominos+IIT+Bombay/" target="_blank" class="map-link">📍 View on Map</a>
+            </div>
+
+            <div class="food-card">
+                <div class="food-header">
+                    <div class="food-title">Chaayos</div>
+                    <div class="badges">
+                        <span class="badge moderate">₹₹ Moderate</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">💡</span>
+                    <div class="info-text"><strong>Recommendation:</strong> Classic Tea and bun maska.</div>
+                </div>
+                <a href="https://www.google.com/maps/search/Chaayos+IIT+Bombay/" target="_blank" class="map-link">📍 View on Map</a>
+            </div>
+
+            <div class="food-card">
+                <div class="food-header">
+                    <div class="food-title">Gulmohar Restaurant</div>
+                    <div class="badges">
+                        <span class="badge pricey">₹₹₹ Pricey</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">💡</span>
+                    <div class="info-text"><strong>Recommendation:</strong> Paneer Tikka Masala and butter naan. Great for taking visiting family.</div>
+                </div>
+                <a href="https://www.google.com/maps/search/Gulmohar+Restaurant+IIT+Bombay/" target="_blank" class="map-link">📍 View on Map</a>
+            </div>
+
+            <div class="food-card">
+                <div class="food-header">
+                    <div class="food-title">CCD (Cafe Coffee Day)</div>
+                    <div class="badges">
+                        <span class="badge pricey">₹₹₹ Pricey</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">💡</span>
+                    <div class="info-text"><strong>Recommendation:</strong> Frappes and sizzling brownies.</div>
+                </div>
+                <a href="https://www.google.com/maps/search/Cafe+Coffee+Day+IIT+Bombay/" target="_blank" class="map-link">📍 View on Map</a>
+            </div>
+
+            <div class="food-card">
+                <div class="food-header">
+                    <div class="food-title">Cafe 92</div>
+                    <div class="badges">
+                        <span class="badge pricey">₹₹₹ Pricey</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">💡</span>
+                    <div class="info-text"><strong>Recommendation:</strong> Pastas and premium iced coffees.</div>
+                </div>
+                <a href="https://www.google.com/maps/search/Cafe+92+IIT+Bombay/" target="_blank" class="map-link">📍 View on Map</a>
+            </div>
+
+        </div>
+
+        <div class="quick-bites-section">
+            <h2>⚡ Quick Bites & Snacks</h2>
+            
+            <div class="quick-bite-card">
+                <h3>KReSIT Building Canteen (Ground Floor)</h3>
+                <p>When you need to grab something fast between heavy coding or physics sessions, this is the spot. They serve quick snacks like hot tea, vada pav, patties, and sandwiches.</p>
+                <a href="https://www.google.com/maps/search/KReSIT+IIT+Bombay/" target="_blank" class="map-link">📍 Open KReSIT in Maps</a>
+            </div>
+
+            <div class="quick-bite-card">
+                <h3>Chea Canteen (Chemistry Dept, 1st Floor)</h3>
+                <p>Conveniently located for science students. Drop by for a rapid refuel of tea, vada pav, puffs, and fresh sandwiches before heading back to the lab.</p>
+                <a href="https://www.google.com/maps/search/Chemistry+Department+IIT+Bombay/" target="_blank" class="map-link">📍 Open Chemistry Dept in Maps</a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
