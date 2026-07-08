@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting to IIT Bombay | Physics Survival Guide</title>
+    <style>
+        :root {
+            --primary-glow: #00ffcc;
+            --secondary-glow: #b366ff;
+            --alert-glow: #ff4757;
+            --dark-bg: #0b0f19;
+            --card-bg: rgba(15, 23, 42, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            padding: 2rem;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 255, 204, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(179, 102, 255, 0.05) 0%, transparent 50%);
+            min-height: 100vh;
+        }
+
+        nav {
+            margin-bottom: 3rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        nav a {
+            color: var(--primary-glow);
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(45deg, #fff, var(--primary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            text-align: center;
+            color: #64748b;
+            font-family: monospace;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        /* Essential Entry Pass Reminder Box */
+        .reminder-box {
+            background: rgba(255, 71, 87, 0.1);
+            border: 1px solid rgba(255, 71, 87, 0.3);
+            border-left: 5px solid var(--alert-glow);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .reminder-box h2 {
+            color: var(--alert-glow);
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reminder-box p {
+            color: #e2e8f0;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .transit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+        }
+
+        .transit-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .transit-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.8rem;
+        }
+
+        .train-header { color: var(--primary-glow); }
+        .flight-header { color: var(--secondary-glow); }
+
+        .station-list {
+            margin: 1rem 0 1.5rem 1.5rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .route-step {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            line-height: 1.6;
+            color: #e2e8f0;
+        }
+
+        .route-step strong {
+            color: #fff;
+        }
+
+        .app-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.2), rgba(179, 102, 255, 0.2));
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .app-link-btn:hover {
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .cab-section {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .cab-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .cab-section p {
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .transit-grid { grid-template-columns: 1fr; }
+            body { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">← Back to Survival Guide</a>
+    </nav>
+
+    <h1>How to get to IIT Bombay</h1>
+    <div class="tagline">Trajectory Optimization: Minimizing Travel Time (t)</div>
+
+    <div class="container">
+        
+        <div class="reminder-box">
+            <h2>⚠️ Crucial Main Gate Access Notice</h2>
+            <p>Before leaving your hometown, check your inbox for the official onboarding email sent by the Director/Academic Office. This email contains a <strong>unique barcode/QR scanner pass</strong>. Until your permanent IIT Bombay physical ID card is generated, security personnel will require you to present this digital pass at the main gate for verification on your very first arrival.</p>
+        </div>
+
+        <div class="transit-grid">
+            
+            <div class="transit-card">
+                <h2 class="train-header">🚂 Arriving by Train</h2>
+                <p>If your long-distance train terminates at one of Mumbai's primary outstation hubs:</p>
+                <ul class="station-list">
+                    <li>Chhatrapati Shivaji Maharaj Terminus (CSMT)</li>
+                    <li>Lokmanya Tilak Terminus (LTT) - <em>Very close to Powai</em></li>
+                    <li>Dadar Central (DR) / Mumbai Central (MMCT)</li>
+                    <li>Bandra Terminus (BDTS) / Borivali (BVI)</li>
+                </ul>
+                
+                <div class="route-step">
+                    <strong>The Local Sequence:</strong> Use the Central Line local train network to reach <strong>Kanjurmarg Railway Station</strong> (the closest rail checkpoint to campus). From Kanjurmarg West, step out to the auto stand and hail a share or meter auto-rickshaw directly to the IIT Bombay Main Gate.
+                </div>
+
+                <a href="https://mindicator.mobi/" target="_blank" rel="noopener noreferrer" class="app-link-btn">
+                    📱 Download m-Indicator App (Essential for Local Trains)
+                </a>
+            </div>
+
+            <div class="transit-card">
+                <h2 class="flight-header">✈️ Arriving by Flight</h2>
+                <p>Landing at Chhatrapati Shivaji Maharaj International Airport (BOM) Terminal 1 or Terminal 2:</p>
+                
+                <div class="route-step">
+                    <strong>The Metro Vector:</strong> Board the Mumbai Metro network and make your way toward the <strong>Aarey Joint Venture Link Road (JVLR)</strong> station. 
+                </div>
+
+                <div class="route-step">
+                    <strong>The Final Leg:</strong> Once you alight at Aarey JVLR, head downstairs to the street level. You can easily pick up a direct auto-rickshaw down the JVLR corridor straight to the campus entrance.
+                </div>
+            </div>
+
+        </div>
+
+        <div class="cab-section">
+            <h3>🚖 The Direct Vector: Prepaid & App Cabs</h3>
+            <p>If you are carrying heavy luggage (books, mattresses, or instrumentation), you can bypass local transit transformations entirely. Book an Uber, Ola, or a prepaid airport/station taxi directly to <strong>IIT Bombay, Powai</strong>. Instruct the driver to head toward the Main Gate via JVLR or Powai Lake road.</p>
+        </div>
+
+    </div>
+
+</body>
+</html>
