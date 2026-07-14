@@ -668,7 +668,26 @@ window.SENIORS_DATA = [
         .toUpperCase();
     }
 
+    function hasUsefulValue(value) {
+      const normalized = String(value || "").trim().toLocaleLowerCase();
+
+      return ![
+        "",
+        "not listed",
+        "none listed",
+        "no internship listed",
+        "n/a",
+        "na",
+        "none",
+        "nil"
+      ].includes(normalized);
+    }
+
     function makeField(label, value) {
+      if (!hasUsefulValue(value)) {
+        return null;
+      }
+
       const wrapper = document.createElement("div");
       wrapper.className = "field";
 
@@ -682,6 +701,13 @@ window.SENIORS_DATA = [
 
       wrapper.append(heading, content);
       return wrapper;
+    }
+
+    function appendUsefulFields(parent, fields) {
+      fields
+        .map(([label, value]) => makeField(label, value))
+        .filter(Boolean)
+        .forEach(field => parent.appendChild(field));
     }
 
     function makeCard(person) {
@@ -732,27 +758,38 @@ window.SENIORS_DATA = [
 
       const body = document.createElement("div");
       body.className = "card-body";
-      body.append(
-        makeField("Institute / organisation", person.institute),
-        makeField("Internship / research area", person.topic),
-        makeField("How they secured it", person.route)
-      );
 
-      const details = document.createElement("details");
-      const summary = document.createElement("summary");
-      summary.textContent = "PoRs and hobbies";
+      appendUsefulFields(body, [
+        ["Institute / organisation", person.institute],
+        ["Internship / research area", person.topic],
+        ["How they secured it", person.route]
+      ]);
 
-      const extra = document.createElement("div");
-      extra.className = "extra";
-      extra.append(
-        makeField("Previous PoR", person.previousPor),
-        makeField("Current PoR", person.currentPor),
-        makeField("Hobbies", person.hobbies)
-      );
+      const extraFields = [
+        ["Previous PoR", person.previousPor],
+        ["Current PoR", person.currentPor],
+        ["Hobbies", person.hobbies]
+      ].filter(([, value]) => hasUsefulValue(value));
 
-      details.append(summary, extra);
-      body.appendChild(details);
-      card.append(identity, body);
+      if (extraFields.length) {
+        const details = document.createElement("details");
+        const summary = document.createElement("summary");
+        summary.textContent = "PoRs and hobbies";
+
+        const extra = document.createElement("div");
+        extra.className = "extra";
+        appendUsefulFields(extra, extraFields);
+
+        details.append(summary, extra);
+        body.appendChild(details);
+      }
+
+      if (body.children.length) {
+        card.append(identity, body);
+      } else {
+        card.append(identity);
+      }
+
       return card;
     }
 
