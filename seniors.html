@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Meet MSc Physics seniors at IIT Bombay and explore their internships, research areas, positions of responsibility and hobbies.">
+  <meta name="theme-color" content="#0b0f19">
+  <title>Meet Your Seniors — IIT Bombay Physics</title>
+  <style>
+    :root {
+      --primary: #00ffcc;
+      --secondary: #b366ff;
+      --dark: #0b0f19;
+      --panel: rgba(15, 23, 42, 0.82);
+      --panel-solid: #111827;
+      --text: #f8fafc;
+      --muted: #a9b7ca;
+      --border: rgba(255, 255, 255, 0.12);
+      --max-width: 1240px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--dark);
+      background-image:
+        linear-gradient(rgba(11, 15, 25, 0.87), rgba(11, 15, 25, 0.97)),
+        url("front_page.jpg");
+      background-position: center;
+      background-size: cover;
+      background-attachment: fixed;
+      color: var(--text);
+      font-family: Inter, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .particles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0.55;
+      background-image:
+        radial-gradient(circle at 15% 35%, rgba(0, 255, 204, 0.08), transparent 44%),
+        radial-gradient(circle at 85% 25%, rgba(179, 102, 255, 0.09), transparent 46%);
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(calc(100% - 2rem), var(--max-width));
+      margin: 0 auto;
+      padding-bottom: 4rem;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.4rem 0;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.68rem 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 0.7rem;
+      background: rgba(15, 23, 42, 0.65);
+      text-decoration: none;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .back-link:hover,
+    .back-link:focus-visible {
+      border-color: rgba(0, 255, 204, 0.55);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    header {
+      max-width: 850px;
+      margin: 2.2rem auto 2rem;
+      text-align: center;
+    }
+
+    .eyebrow {
+      margin-bottom: 0.8rem;
+      color: var(--primary);
+      font-family: "Courier New", monospace;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 7vw, 4.25rem);
+      line-height: 1.06;
+      letter-spacing: -0.035em;
+      text-wrap: balance;
+    }
+
+    .intro {
+      max-width: 720px;
+      margin: 1rem auto 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.8rem;
+      max-width: 760px;
+      margin: 1.8rem auto 0;
+    }
+
+    .stat {
+      padding: 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 0.8rem;
+      background: rgba(15, 23, 42, 0.68);
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.45rem;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) auto;
+      gap: 1rem;
+      align-items: center;
+      margin: 2rem 0 1.3rem;
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      background: rgba(15, 23, 42, 0.76);
+      backdrop-filter: blur(12px);
+    }
+
+    .search {
+      width: 100%;
+      padding: 0.82rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 0.7rem;
+      background: rgba(2, 6, 23, 0.72);
+      color: var(--text);
+      font: inherit;
+    }
+
+    .search:focus {
+      border-color: var(--primary);
+      outline: 2px solid rgba(0, 255, 204, 0.16);
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .filter {
+      padding: 0.67rem 0.82rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.84rem;
+    }
+
+    .filter:hover,
+    .filter:focus-visible,
+    .filter.active {
+      border-color: var(--primary);
+      background: rgba(0, 255, 204, 0.1);
+      color: var(--text);
+      outline: none;
+    }
+
+    .results {
+      margin-bottom: 0.9rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .senior-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 315px), 1fr));
+      gap: 1.2rem;
+    }
+
+    .senior-card {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      background: var(--panel);
+      backdrop-filter: blur(12px);
+      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .senior-card:hover {
+      border-color: rgba(0, 255, 204, 0.35);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.34);
+      transform: translateY(-4px);
+    }
+
+    .identity {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 1rem;
+      align-items: center;
+      padding: 1.15rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .portrait-wrap {
+      position: relative;
+      width: 88px;
+      height: 88px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 255, 204, 0.25);
+      border-radius: 50%;
+      background: linear-gradient(145deg, rgba(0, 255, 204, 0.16), rgba(179, 102, 255, 0.16));
+    }
+
+    .portrait {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .avatar {
+      display: grid;
+      position: absolute;
+      inset: 0;
+      place-items: center;
+      color: var(--primary);
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .identity h2 {
+      margin-bottom: 0.42rem;
+      font-size: 1.32rem;
+      line-height: 1.2;
+    }
+
+    .category {
+      display: inline-flex;
+      padding: 0.3rem 0.55rem;
+      border: 1px solid rgba(179, 102, 255, 0.3);
+      border-radius: 999px;
+      background: rgba(179, 102, 255, 0.1);
+      color: #dcc2ff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .card-body {
+      padding: 1.15rem;
+    }
+
+    .field + .field {
+      margin-top: 0.9rem;
+    }
+
+    .label {
+      display: block;
+      margin-bottom: 0.25rem;
+      color: var(--primary);
+      font-family: "Courier New", monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .value {
+      color: #e5edf7;
+      line-height: 1.52;
+    }
+
+    details {
+      margin-top: 1rem;
+      border-top: 1px solid var(--border);
+      padding-top: 0.85rem;
+    }
+
+    summary {
+      color: #d9c4ff;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .extra {
+      margin-top: 0.9rem;
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      padding: 3rem 1rem;
+      border: 1px dashed var(--border);
+      border-radius: 1rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .note {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border-left: 3px solid var(--secondary);
+      border-radius: 0.3rem 0.8rem 0.8rem 0.3rem;
+      background: rgba(179, 102, 255, 0.08);
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 820px) {
+      .summary {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .page {
+        width: min(calc(100% - 1.2rem), var(--max-width));
+      }
+
+      .topbar {
+        padding-top: 0.9rem;
+      }
+
+      header {
+        margin-top: 1.3rem;
+      }
+
+      .identity {
+        grid-template-columns: 72px 1fr;
+      }
+
+      .portrait-wrap {
+        width: 72px;
+        height: 72px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" aria-hidden="true"></div>
+
+  <div class="page">
+    <nav class="topbar" aria-label="Page navigation">
+      <a class="back-link" href="./index.html">← Back to guide</a>
+    </nav>
+
+    <header>
+      <p class="eyebrow">ψ(x,t) · Meet the batch</p>
+      <h1>What Are Your Seniors Up To?</h1>
+      <p class="intro">
+        Explore internships, research interests, positions of responsibility and hobbies.
+        Search by a senior's name, institute, topic or interest.
+      </p>
+
+      <div class="summary" aria-label="Senior data summary">
+        <div class="stat"><strong id="total-count">0</strong><span>Unique seniors</span></div>
+        <div class="stat"><strong id="research-count">0</strong><span>Research</span></div>
+        <div class="stat"><strong id="industry-count">0</strong><span>Industry</span></div>
+        <div class="stat"><strong id="other-count">0</strong><span>Other paths</span></div>
+      </div>
+    </header>
+
+    <section class="controls" aria-label="Search and filter seniors">
+      <input
+        id="search"
+        class="search"
+        type="search"
+        placeholder="Search name, institute, topic, PoR or hobby…"
+        autocomplete="off"
+      >
+
+      <div class="filters" role="group" aria-label="Filter by path">
+        <button class="filter active" data-filter="all" type="button">All</button>
+        <button class="filter" data-filter="research" type="button">Research</button>
+        <button class="filter" data-filter="industry" type="button">Industry</button>
+        <button class="filter" data-filter="teaching" type="button">Teaching</button>
+        <button class="filter" data-filter="exploring" type="button">Exploring</button>
+      </div>
+    </section>
+
+    <p id="results" class="results" aria-live="polite"></p>
+    <main id="senior-grid" class="senior-grid"></main>
+
+    <p class="note">
+      These are student-submitted responses and may change over time. Email addresses
+      are intentionally not displayed on this public page. Use your official batch
+      channels when you need to contact a senior.
+    </p>
+  </div>
+
+  <script>
+// Generated from Batchmate Data (Responses).xlsx.
+// Duplicate names were removed; the most complete/latest response was retained.
+window.SENIORS_DATA = [
+  {
+    "name": "Aditya Mishra",
+    "photo": "https://drive.google.com/thumbnail?id=1Y97FGoVaqTLYI8d-_-VH3pjF8Ly6qwkF&sz=w500",
+    "institute": "IIT Bombay",
+    "topic": "The Early Universe (recombination epoch)",
+    "route": "Email professors",
+    "previousPor": "None listed",
+    "currentPor": "None listed",
+    "hobbies": "Swimming, chess, cricket, cycling, reading random books, etc.",
+    "category": "research"
+  },
+  {
+    "name": "Ankit Choudhary",
+    "photo": "https://drive.google.com/thumbnail?id=1Yv_o7B4kFop2kYGC566ys6Na90pJBGit&sz=w500",
+    "institute": "No internship listed",
+    "topic": "Not listed",
+    "route": "Not listed",
+    "previousPor": "Maintenance Councillor of Tansa House",
+    "currentPor": "None listed",
+    "hobbies": "Playing Cricket",
+    "category": "exploring"
+  },
+  {
+    "name": "Ashutosh Panigrahi",
+    "photo": "https://drive.google.com/thumbnail?id=15us_fdWoHVSFwFaozi2NuhaqJpPQPeFc&sz=w500",
+    "institute": "No internship listed",
+    "topic": "Not listed",
+    "route": "Not listed",
+    "previousPor": "None listed",
+    "currentPor": "None listed",
+    "hobbies": "Playing table tennis, badminton, watching football, cricket, solving mathematical problems.",
+    "category": "exploring"
+  },
+  {
+    "name": "Athul S Krishna",
+    "photo": "https://drive.google.com/thumbnail?id=1gB_1AHStT1DrUnLqpaeOphGVBJY2-5DT&sz=w500",
+    "institute": "STAR Lab, IIT Bombay",
+    "topic": "Observational Astronomy and Telescope Automation at GROWTH-India Telescope (GIT)",
+    "route": "cold-email",
+    "previousPor": "Sports Councillor, Tansa House",
+    "currentPor": "None listed",
+    "hobbies": "Playing football (especially football) and all the other things normal humans do.",
+    "category": "research"
+  },
+  {
+    "name": "Chakradhar Manna",
+    "photo": "https://drive.google.com/thumbnail?id=1QKiBoddfMaRFk75QsMQEXQD7LOiVHHWm&sz=w500",
+    "institute": "IIT Kharagpur",
+    "topic": "Design and Fabrication of Spectrally Selective Solar Absorber Coatings for Solar Thermal Energy Harvesting",
+    "route": "Cold Mail",
+    "previousPor": "None listed",
+    "currentPor": "None listed",
+    "hobbies": "Drawing, reading detective novels and fiction, playing cricket, badminton, table tennis, carrom, and 8-ball pool, exploring new foods, and eating a lot, don't judge my appetite by my looks!",
+    "category": "research"
+  },
+  {
+    "name": "Devendra Prashad",
+    "photo": "https://drive.google.com/thumbnail?id=1_j78Eu6GOGexxWDkygNKp0LpdLcSUevT&sz=w500",
+    "institute": "No internship listed",
+    "topic": "Not listed",
+    "route": "Not listed",
+    "previousPor": "Interview Co-ordinator",
+    "currentPor": "None listed",
+    "hobbies": "I am a part time gamedev...love exploring how game system works.",
+    "category": "exploring"
+  },
+  {
+    "name": "Dhruv Kumar Solanki",
+    "photo": "https://drive.google.com/thumbnail?id=1TbNXzdCWk266_V8tTEfMc_9obevUHgy2&sz=w500",
+    "institute": "Citi",
+    "topic": "Digital engagement data analysis",
+    "route": "Placement Cell",
+    "previousPor": "Nope..not in masters, but held a lot in Bachelors",
+    "currentPor": "None listed",
+    "hobbies": "A lot actually...I play badminton, football, cricket, chess ( Don't play any of them on a proficient level though), I write poetry, I vibe-code for fun, I like to read about finance etc.",
+    "category": "industry"
+  },
+  {
+    "name": "Harshita",
+    "photo": "https://drive.google.com/thumbnail?id=1_gcNRP9uHdbkWw16BaZJ6TH1JYcuIPpv&sz=w500",
+    "institute": "IIA and IIT Bombay",
+    "topic": "Supernovae detection by GIT.",
+    "route": "By talking ❤️(to Varun Sir)",
+    "previousPor": "None listed",
+    "currentPor": "None listed",
+    "hobbies": "Not listed",
+    "category": "research"
+  },
+  {
+    "name": "Hemant Saini",
+    "photo": "https://drive.google.com/thumbnail?id=1oFXx5_Ra2Ie36vkb1uKEnbRfXX6Qi7Dk&sz=w500",
+    "institute": "IIT Bombay",
+    "topic": "Condensed Matter Physics",
+    "route": "Cold mail and visiting the office",
+    "previousPor": "CR, Tech Councillor tansa",
+    "currentPor": "Sports secy",
+    "hobbies": "I love to play cricket, volleyball and BGMI.",
+    "category": "research"
+  },
+  {
+    "name": "Himanshu",
+    "photo": "https://drive.google.com/thumbnail?id=1oVeJCS4kzFUZhHSk4RXomjYAuwfj3_Kt&sz=w500",
+    "institute": "No internship listed",
+    "topic": "Not interested in research",
+    "route": "Not listed",
+    "previousPor": "PR and logistics coordinator in pg cult",
+    "currentPor": "None listed",
+    "hobbies": "My hobbies are to listen music, play video games, and watching movies. Other than that i like cycling",
+    "category": "exploring"
+  },
+  {
+    "name": "Jahidul Islam",
+    "photo": "https://drive.google.com/thumbnail?id=1ziJ3BnvcCrXPuACG_yM4mnWFWlK8KvmX&sz=w500",
+    "institute": "UDAAN Residential School",
+    "topic": "NEET/JEE MENTORSHIP",
+    "route": "COLD MAILING",
+    "previousPor": "None listed",
+    "currentPor": "None listed",
+    "hobbies": "I enjoy playing cricket and carrom",
+    "category": "teaching"
+  },
+  {
+    "name": "Jashandeep Singh",
+    "photo": "https://drive.google.com/thumbnail?id=1-1dMppMT5UvgVwwfWijRd6l6aMbtWLhg&sz=w500",
+    "institute": "Vikram Sarabhai Space Centre",
+    "topic": "Atmospheric Modelling (Mainly data analysis)",
+    "route": "Through Vssc internship portal",
+    "previousPor": "None listed",
+    "currentPor": "None listed",
+    "hobbies": "Doing Calisthenics, Playing Basketball, online games",
+    "category": "research"
+  },
+  {
+    "name": "Kaustav Paul",
+    "photo": "https://drive.google.com/thumbnail?id=18RUmHfp57sp0f85RVM1wZnADWYY08kaC&sz=w500",
+    "institute": "QNu Labs Private Limited",
+    "topic": "Quantum Key Distribution - DFB Laser and SPAD",
+    "route": "LinkedIn",
+    "previousPor": "None listed",
+    "currentPor": "None listed",
+    "hobbies": "Swimming, Tennis, Table Tennis, Cricket",
+    "category": "industry"
+  },
+  {
+    "name": "Khilesh Kumar",
+    "photo": "https://drive.google.com/thumbnail?id=10n_MUkk58cxDXGmVCe8ls4u4i2sUrrW7&sz=w500",
+    "institute": "CeNSE, IISc Bengaluru",
+    "topic": "Semiconductor fabrication",
+    "route": "Formal program",
+    "previousPor": "None listed",
+    "currentPor": "None listed",
+    "hobbies": "Tennis gym swimming",
+    "category": "research"
+  },
+  {
+    "name": "Manjinder Singh",
+    "photo": "https://drive.google.com/thumbnail?id=1XnfYNUE5nArDQbTI3-VxHoSNMCmbvPdN&sz=w500",
+    "institute": "No internship listed",
+    "topic": "Not listed",
+    "route": "Not listed",
+    "previousPor": "None listed",
+    "currentPor": "None listed",
+    "hobbies": "Sketching, Journaling",
+    "category": "exploring"
+  },
+  {
+    "name": "Sk Samiruddin",
+    "photo": "https://drive.google.com/thumbnail?id=19EBhPQ_3dL3gKnwYmSXyH7u9Sk2Pv4vJ&sz=w500",
+    "institute": "No internship listed",
+    "topic": "Not listed",
+    "route": "Not listed",
+    "previousPor": "None listed",
+    "currentPor": "None listed",
+    "hobbies": "Reading manga",
+    "category": "exploring"
+  },
+  {
+    "name": "Vansh Shukal",
+    "photo": "https://drive.google.com/thumbnail?id=1HLf0vJaUo4mhf5OxGiUHZKlYA8d__4RG&sz=w500",
+    "institute": "IISER Bhopal",
+    "topic": "Quantum Sensing",
+    "route": "Through formal program",
+    "previousPor": "Interview Coordinator",
+    "currentPor": "SC",
+    "hobbies": "Travelling, Gym workouts, Badminton, Table Tennis, Swimming, Listening to Meaningful Music",
+    "category": "research"
+  },
+  {
+    "name": "Vishalraj Lodhi",
+    "photo": "https://drive.google.com/thumbnail?id=1yWiXNX1PYq0KiQilxtKTpyw1P1cW-980&sz=w500",
+    "institute": "IIT Kanpur",
+    "topic": "Photonics, Quantum Electrodynamics, Quantum Optics",
+    "route": "Formal program",
+    "previousPor": "None listed",
+    "currentPor": "None listed",
+    "hobbies": "Singing",
+    "category": "research"
+  }
+];
+</script>
+  <script>
+    const data = Array.isArray(window.SENIORS_DATA) ? window.SENIORS_DATA : [];
+    const grid = document.querySelector("#senior-grid");
+    const search = document.querySelector("#search");
+    const resultText = document.querySelector("#results");
+    const filters = [...document.querySelectorAll(".filter")];
+    let activeFilter = "all";
+
+    const categoryLabels = {
+      research: "Research",
+      industry: "Industry",
+      teaching: "Teaching",
+      exploring: "Exploring"
+    };
+
+    function initials(name) {
+      return name
+        .split(/\s+/)
+        .filter(Boolean)
+        .slice(0, 2)
+        .map(part => part[0])
+        .join("")
+        .toUpperCase();
+    }
+
+    function makeField(label, value) {
+      const wrapper = document.createElement("div");
+      wrapper.className = "field";
+
+      const heading = document.createElement("span");
+      heading.className = "label";
+      heading.textContent = label;
+
+      const content = document.createElement("p");
+      content.className = "value";
+      content.textContent = value;
+
+      wrapper.append(heading, content);
+      return wrapper;
+    }
+
+    function makeCard(person) {
+      const card = document.createElement("article");
+      card.className = "senior-card";
+
+      const identity = document.createElement("div");
+      identity.className = "identity";
+
+      const portraitWrap = document.createElement("div");
+      portraitWrap.className = "portrait-wrap";
+
+      const fallback = document.createElement("span");
+      fallback.className = "avatar";
+      fallback.textContent = initials(person.name);
+      portraitWrap.appendChild(fallback);
+
+      if (person.photo) {
+        const image = document.createElement("img");
+        image.className = "portrait";
+        image.src = person.photo;
+        image.alt = `Photo of ${person.name}`;
+        image.loading = "lazy";
+        image.referrerPolicy = "no-referrer";
+        image.addEventListener("error", () => image.remove());
+        portraitWrap.appendChild(image);
+      }
+
+      const titleWrap = document.createElement("div");
+      const name = document.createElement("h2");
+      name.textContent = person.name;
+
+      const badge = document.createElement("span");
+      badge.className = "category";
+      badge.textContent = categoryLabels[person.category] || person.category;
+
+      titleWrap.append(name, badge);
+      identity.append(portraitWrap, titleWrap);
+
+      const body = document.createElement("div");
+      body.className = "card-body";
+      body.append(
+        makeField("Institute / organisation", person.institute),
+        makeField("Internship / research area", person.topic),
+        makeField("How they secured it", person.route)
+      );
+
+      const details = document.createElement("details");
+      const summary = document.createElement("summary");
+      summary.textContent = "PoRs and hobbies";
+
+      const extra = document.createElement("div");
+      extra.className = "extra";
+      extra.append(
+        makeField("Previous PoR", person.previousPor),
+        makeField("Current PoR", person.currentPor),
+        makeField("Hobbies", person.hobbies)
+      );
+
+      details.append(summary, extra);
+      body.appendChild(details);
+      card.append(identity, body);
+      return card;
+    }
+
+    function searchableText(person) {
+      return Object.values(person).join(" ").toLocaleLowerCase();
+    }
+
+    function render() {
+      const query = search.value.trim().toLocaleLowerCase();
+
+      const filtered = data.filter(person => {
+        const categoryMatch =
+          activeFilter === "all" || person.category === activeFilter;
+        const searchMatch =
+          !query || searchableText(person).includes(query);
+        return categoryMatch && searchMatch;
+      });
+
+      grid.replaceChildren();
+
+      if (!filtered.length) {
+        const empty = document.createElement("p");
+        empty.className = "empty";
+        empty.textContent = "No senior matches this search or filter.";
+        grid.appendChild(empty);
+      } else {
+        const fragment = document.createDocumentFragment();
+        filtered.forEach(person => fragment.appendChild(makeCard(person)));
+        grid.appendChild(fragment);
+      }
+
+      resultText.textContent =
+        `${filtered.length} of ${data.length} unique seniors shown`;
+    }
+
+    document.querySelector("#total-count").textContent = data.length;
+    document.querySelector("#research-count").textContent =
+      data.filter(person => person.category === "research").length;
+    document.querySelector("#industry-count").textContent =
+      data.filter(person => person.category === "industry").length;
+    document.querySelector("#other-count").textContent =
+      data.filter(person => ["teaching", "exploring"].includes(person.category)).length;
+
+    search.addEventListener("input", render);
+
+    filters.forEach(button => {
+      button.addEventListener("click", () => {
+        activeFilter = button.dataset.filter;
+        filters.forEach(item => item.classList.toggle("active", item === button));
+        render();
+      });
+    });
+
+    const equations = ["E = mc²", "λ = h/p", "iℏ∂Ψ/∂t = ĤΨ", "F = −kx"];
+    const particles = document.querySelector(".particles");
+
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      for (let index = 0; index < 12; index += 1) {
+        const equation = document.createElement("span");
+        equation.textContent = equations[Math.floor(Math.random() * equations.length)];
+        equation.style.position = "absolute";
+        equation.style.left = `${Math.random() * 100}vw`;
+        equation.style.top = `${Math.random() * 100}vh`;
+        equation.style.opacity = Math.random() * 0.16;
+        equation.style.fontSize = `${Math.random() * 18 + 10}px`;
+        equation.style.fontFamily = "Georgia, serif";
+        equation.style.transform = `rotate(${Math.random() * 360}deg)`;
+        particles.appendChild(equation);
+      }
+    }
+
+    render();
+  </script>
+</body>
+</html>
