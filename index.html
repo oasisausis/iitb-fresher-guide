@@ -239,6 +239,29 @@
       text-transform: uppercase;
     }
 
+
+    .credit-band {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      padding: 1rem 1.25rem;
+      border-top: 1px solid rgba(0, 255, 204, 0.2);
+      background: linear-gradient(
+        90deg,
+        rgba(0, 255, 204, 0.10),
+        rgba(179, 102, 255, 0.10)
+      );
+      color: #dbeafe;
+      text-align: center;
+      font-size: 0.92rem;
+      letter-spacing: 0.02em;
+      backdrop-filter: blur(10px);
+    }
+
+    .credit-band strong {
+      color: var(--primary-glow);
+    }
+
     footer {
       position: relative;
       z-index: 1;
@@ -306,7 +329,7 @@
       <p>From hostel messes to late-night Maggi—conserving energy through calories.</p>
     </a>
 
-    <a href="seniors.html" class="card">
+    <a href="./seniors.html" class="card">
       <span class="badge">Updated</span>
       <div class="card-icon" aria-hidden="true">🔬</div>
       <h2>What Are My Seniors Up To?</h2>
@@ -363,5 +386,10 @@
       }
     }
   </script>
+
+  <div class="credit-band">
+    This website was made by <strong>Ayushi Singh</strong>, Department Coordinator, Batch of ’27.
+  </div>
+
 </body>
 </html>
