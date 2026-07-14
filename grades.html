@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grades & CPI | IITB Physics</title>
+    <style>
+        :root {
+            --primary-glow: #00ffcc;
+            --secondary-glow: #b366ff;
+            --alert-glow: #ff4757;
+            --pass-glow: #2ed573;
+            --dark-bg: #0b0f19;
+            --card-bg: rgba(15, 23, 42, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            padding: 2rem;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 255, 204, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(179, 102, 255, 0.05) 0%, transparent 50%);
+            min-height: 100vh;
+        }
+
+        nav {
+            margin-bottom: 3rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        nav a {
+            color: var(--primary-glow);
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            background: linear-gradient(45deg, #fff, var(--primary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            font-family: monospace;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        /* Grade Table Section */
+        .grade-table-container {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .grade-table-container h2 {
+            color: var(--secondary-glow);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        th {
+            color: var(--primary-glow);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .grade-10 { color: var(--primary-glow); font-weight: bold; }
+        .grade-pass { color: var(--pass-glow); }
+        .grade-fail { color: var(--alert-glow); font-weight: bold; }
+
+        /* SPI Calculator Section */
+        .calculator-section {
+            background: linear-gradient(145deg, rgba(20, 25, 35, 0.9), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.05);
+        }
+
+        .calculator-section h2 {
+            color: var(--primary-glow);
+            margin-bottom: 1.5rem;
+        }
+
+        .calc-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        input, select {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 0.8rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-glow);
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: rgba(0, 255, 204, 0.2);
+            border-color: var(--primary-glow);
+        }
+
+        .btn-remove {
+            background: rgba(255, 71, 87, 0.1);
+            color: var(--alert-glow);
+            border-color: rgba(255, 71, 87, 0.3);
+            padding: 0.8rem;
+        }
+
+        .btn-remove:hover {
+            background: var(--alert-glow);
+            color: #fff;
+        }
+
+        .result-box {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.5rem;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        #spi-result {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-glow);
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        /* Rules Section */
+        .rules-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .rule-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .rule-card h3 {
+            color: var(--secondary-glow);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
+        }
+
+        .rule-card p {
+            color: #cbd5e1;
+            line-height: 1.5;
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .calc-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">← Back to Survival Guide</a>
+    </nav>
+
+    <h1>Grades & CPI</h1>
+    <div class="subtitle">Schrödinger's CPI: It's an AP and an FR until you open ASC.</div>
+
+    <div class="container">
+        
+        <!-- Energy Levels (Grading Table) -->
+        <div class="grade-table-container">
+            <h2>📊 The IITB Energy Levels (Grade Points)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Letter Grade</th>
+                        <th>Grade Point</th>
+                        <th>Meaning / Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="grade-10">AP / AA</td>
+                        <td class="grade-10">10</td>
+                        <td>Academic Perfection[cite: 2].</td>
+                    </tr>
+                    <tr>
+                        <td class="grade-pass">AB</td>
+                        <td class="grade-pass">9</td>
+                        <td>Excellent</td>
+                    </tr>
+                    <tr>
+                        <td class="grade-pass">BB</td>
+                        <td class="grade-pass">8</td>
+                        <td>Very Good</td>
+                    </tr>
+                    <tr>
+                        <td class="grade-pass">BC</td>
+                        <td class="grade-pass">7</td>
+                        <td>Good</td>
+                    </tr>
+                    <tr>
+                        <td class="grade-pass">CC</td>
+                        <td class="grade-pass">6</td>
+                        <td>Average</td>
+                    </tr>
+                    <tr>
+                        <td class="grade-pass">CD</td>
+                        <td class="grade-pass">5</td>
+                        <td>Below Average</td>
+                    </tr>
+                    <tr>
+                        <td class="grade-pass">DD</td>
+                        <td class="grade-pass">4</td>
+                        <td>Minimum Passing Grade[cite: 2].</td>
+                    </tr>
+                    <tr>
+                        <td class="grade-fail">FR / FF</td>
+                        <td class="grade-fail">0</td>
+                        <td>Fail. Course must be repeated (if core)[cite: 2].</td>
+                    </tr>
+                    <tr>
+                        <td class="grade-fail">DX</td>
+                        <td class="grade-fail">-</td>
+                        <td>Fail due to lack of attendance[cite: 2].</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SPI Calculator -->
+        <div class="calculator-section">
+            <h2>🧮 Quantum SPI Calculator</h2>
+            <p style="color: #94a3b8; margin-bottom: 1.5rem;">Calculate your expected trajectory. Add your courses, credits, and expected wave-function collapse (grade).</p>
+            
+            <div id="course-container">
+                <!-- Initial Row -->
+                <div class="calc-row">
+                    <input type="text" placeholder="Course Name (e.g. PH 401)">
+                    <input type="number" class="credits" placeholder="Credits (e.g. 6)" min="1">
+                    <select class="grade">
+                        <option value="10">AP / AA (10)</option>
+                        <option value="9">AB (9)</option>
+                        <option value="8">BB (8)</option>
+                        <option value="7">BC (7)</option>
+                        <option value="6">CC (6)</option>
+                        <option value="5">CD (5)</option>
+                        <option value="4">DD (4)</option>
+                        <option value="0">FR (0)</option>
+                    </select>
+                    <button class="btn btn-remove" onclick="this.parentElement.remove(); calculateSPI();">X</button>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem;">
+                <button class="btn" onclick="addCourseRow()">+ Add Course</button>
+                <button class="btn" style="background: rgba(0, 255, 204, 0.2); border-color: var(--primary-glow);" onclick="calculateSPI()">Calculate Expected SPI</button>
+            </div>
+
+            <div class="result-box">
+                Expected SPI 
+                <span id="spi-result">0.00</span>
+            </div>
+        </div>
+
+        <!-- The Rules of the Universe -->
+        <div class="rules-section">
+            <div class="rule-card">
+                <h3>⚠️ The 'FR' and 'FF' Grades</h3>
+                <p><strong>FR:</strong> Awarded for inadequate academic exposure, extremely poor performance, or malpractice[cite: 2]. You <strong>must</strong> re-register and repeat the course if it is a core subject[cite: 2].</p>
+                <p><strong>FF:</strong> Usually awarded if you miss a seminar/presentation[cite: 2]. You may be permitted a re-exam, but the maximum grade you can get after passing is a <strong>DD</strong>[cite: 2].</p>
+            </div>
+
+            <div class="rule-card">
+                <h3>👻 The 'DX' Grade</h3>
+                <p>Awarded if you fail to meet the attendance requirements[cite: 2]. You are barred from taking the end-semester exam[cite: 2]. It doesn't impact your SPI numerically, but it sits on your transcript as a backlog[cite: 2].</p>
+            </div>
+
+            <div class="rule-card">
+                <h3>🚑 Incomplete (II) & Withdraw (W)</h3>
+                <p><strong>II (Incomplete):</strong> Given if you miss the end-sem on medical grounds. You get a 50-mark re-exam later[cite: 2].</p>
+                <p><strong>W (Withdraw):</strong> If a course load is too heavy, you can drop it within the stipulated time (usually 2 weeks after mid-sems). It shows as 'W' and has no impact on your SPI[cite: 2].</p>
+            </div>
+
+            <div class="rule-card">
+                <h3>📈 Grade Improvement</h3>
+                <p>If your CPI falls below 6.0 and you are put on Academic Probation, you can re-register for courses to improve your grade[cite: 2]. The new grade completely replaces the old one[cite: 2]. <em>Catch:</em> You can only do this for a maximum of <strong>TWO</strong> courses in your entire degree, and only once per course[cite: 2].</p>
+            </div>
+
+            <div class="rule-card">
+                <h3>🎧 Audit (AU)</h3>
+                <p>If you just want to learn without the SPI stress, you can Audit a course[cite: 2]. You must maintain 80% attendance to get the 'AU' grade on your transcript[cite: 2]. If you fail the criteria, it's treated as a dropped course[cite: 2].</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function addCourseRow() {
+            const container = document.getElementById('course-container');
+            const row = document.createElement('div');
+            row.className = 'calc-row';
+            row.innerHTML = `
+                <input type="text" placeholder="Course Name (e.g. PH 418)">
+                <input type="number" class="credits" placeholder="Credits (e.g. 6)" min="1">
+                <select class="grade">
+                    <option value="10">AP / AA (10)</option>
+                    <option value="9">AB (9)</option>
+                    <option value="8">BB (8)</option>
+                    <option value="7">BC (7)</option>
+                    <option value="6">CC (6)</option>
+                    <option value="5">CD (5)</option>
+                    <option value="4">DD (4)</option>
+                    <option value="0">FR (0)</option>
+                </select>
+                <button class="btn btn-remove" onclick="this.parentElement.remove(); calculateSPI();">X</button>
+            `;
+            container.appendChild(row);
+        }
+
+        function calculateSPI() {
+            const creditsInputs = document.querySelectorAll('.credits');
+            const gradeInputs = document.querySelectorAll('.grade');
+            
+            let totalCredits = 0;
+            let totalPoints = 0;
+
+            for(let i = 0; i < creditsInputs.length; i++) {
+                const credit = parseFloat(creditsInputs[i].value);
+                const grade = parseFloat(gradeInputs[i].value);
+
+                if(!isNaN(credit) && credit > 0) {
+                    totalCredits += credit;
+                    totalPoints += (credit * grade);
+                }
+            }
+
+            const spi = totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : "0.00";
+            document.getElementById('spi-result').innerText = spi;
+        }
+    </script>
+</body>
+</html>
