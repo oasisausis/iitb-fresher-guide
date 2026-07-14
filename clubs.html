@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A practical fresher's guide to Master's life at IIT Bombay, Physics edition.">
+  <meta name="theme-color" content="#0b0f19">
+  <title>IIT Bombay Fresher's Guide — Physics Edition</title>
+  <style>
+    :root {
+      --primary-glow: #00ffcc;
+      --secondary-glow: #b366ff;
+      --danger: #ff6b6b;
+      --dark-bg: #0b0f19;
+      --card-bg: rgba(15, 23, 42, 0.76);
+      --text: #f8fafc;
+      --muted: #a9b7ca;
+      --border: rgba(255, 255, 255, 0.12);
+      --max-width: 1200px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-color: var(--dark-bg);
+      background-image:
+        linear-gradient(rgba(11, 15, 25, 0.83), rgba(11, 15, 25, 0.96)),
+        url('front_page.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: var(--text);
+      font-family: Inter, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 0.75rem;
+      left: 0.75rem;
+      z-index: 20;
+      padding: 0.7rem 1rem;
+      border-radius: 0.65rem;
+      background: var(--text);
+      color: #111827;
+      transform: translateY(-160%);
+      transition: transform 0.2s ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+      opacity: 0.52;
+      background-image:
+        radial-gradient(circle at 15% 50%, rgba(0, 255, 204, 0.09) 0%, transparent 48%),
+        radial-gradient(circle at 85% 30%, rgba(179, 102, 255, 0.09) 0%, transparent 48%);
+    }
+
+    header {
+      position: relative;
+      z-index: 1;
+      max-width: 950px;
+      margin: 0 auto;
+      padding: 4.5rem 1.5rem 2.5rem;
+      text-align: center;
+    }
+
+    .subtitle {
+      margin-bottom: 1rem;
+      color: var(--primary-glow);
+      font-family: "Courier New", monospace;
+      font-size: clamp(0.95rem, 2vw, 1.2rem);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      color: #ffffff;
+      font-size: 4.3rem;
+      font-size: clamp(2.35rem, 7vw, 4.3rem);
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      text-wrap: balance;
+    }
+
+    @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+      h1 {
+        background: linear-gradient(45deg, #ffffff, #a3b8cc);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+      }
+    }
+
+    .equation {
+      color: rgba(255, 255, 255, 0.62);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.1rem, 3vw, 1.55rem);
+      font-style: italic;
+    }
+
+    .intro {
+      max-width: 680px;
+      margin: 1.25rem auto 0;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+
+    .grid-container {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+      gap: 1.4rem;
+      width: min(calc(100% - 2rem), var(--max-width));
+      margin: 0 auto;
+      padding: 0 0 4rem;
+    }
+
+    .card {
+      position: relative;
+      display: flex;
+      min-height: 225px;
+      overflow: hidden;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.6rem;
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      color: var(--text);
+      text-align: center;
+      text-decoration: none;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card::before {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent, var(--primary-glow)));
+      content: "";
+      transition: left 0.45s ease;
+    }
+
+    .card:hover,
+    .card:focus-visible {
+      border-color: color-mix(in srgb, var(--accent, var(--primary-glow)) 45%, transparent);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.42), 0 0 24px color-mix(in srgb, var(--accent, var(--primary-glow)) 13%, transparent);
+      transform: translateY(-5px);
+      outline: none;
+    }
+
+    .card:hover::before,
+    .card:focus-visible::before {
+      left: 100%;
+    }
+
+    .card:nth-child(even) {
+      --accent: var(--secondary-glow);
+    }
+
+    .card--danger {
+      --accent: var(--danger) !important;
+      border-color: rgba(255, 107, 107, 0.3);
+      background: linear-gradient(145deg, rgba(71, 20, 29, 0.8), rgba(15, 23, 42, 0.82));
+    }
+
+    .card--muted {
+      cursor: default;
+      opacity: 0.78;
+    }
+
+    .card--muted:hover {
+      border-color: var(--border);
+      box-shadow: none;
+      transform: none;
+    }
+
+    .card-icon {
+      margin-bottom: 1rem;
+      color: var(--accent, var(--primary-glow));
+      font-size: 2.6rem;
+      line-height: 1;
+      filter: drop-shadow(0 0 12px color-mix(in srgb, var(--accent, var(--primary-glow)) 20%, transparent));
+    }
+
+    .card h2 {
+      margin-bottom: 0.6rem;
+      font-size: 1.42rem;
+      line-height: 1.25;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.55;
+    }
+
+    .badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.28rem 0.55rem;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      color: #dbeafe;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 1.25rem 1rem 2rem;
+      color: #8090a6;
+      font-size: 0.82rem;
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      header {
+        padding-top: 3.2rem;
+      }
+
+      .grid-container {
+        width: min(calc(100% - 1.25rem), var(--max-width));
+        gap: 1rem;
+      }
+
+      .card {
+        min-height: 195px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#guide-sections">Skip to guide sections</a>
+  <div class="particles" aria-hidden="true"></div>
+
+  <header>
+    <div class="subtitle">∇ × E = −∂B/∂t</div>
+    <h1>A Fresher's Guide to Surviving Master's Life at IIT Bombay</h1>
+    <div class="equation">Physics Edition</div>
+    <p class="intro">A compact, student-made guide to academics, campus life, monsoons, food, clubs, travel and essential help.</p>
+  </header>
+
+  <main id="guide-sections" class="grid-container">
+    <a href="courses.html" class="card">
+      <div class="card-icon" aria-hidden="true">⚛️</div>
+      <h2>First Semester Courses</h2>
+      <p>Classical Mechanics, Quantum, and the art of staying awake in morning lectures.</p>
+    </a>
+
+    <a href="grades.html" class="card">
+      <div class="card-icon" aria-hidden="true">📈</div>
+      <h2>Grades and CPI</h2>
+      <p>Understanding CPI, SPI, grading, and why thermodynamics might perturb both.</p>
+    </a>
+
+    <a href="food.html" class="card">
+      <div class="card-icon" aria-hidden="true">☕</div>
+      <h2>Places to Eat</h2>
+      <p>From hostel messes to late-night Maggi—conserving energy through calories.</p>
+    </a>
+
+    <article class="card card--muted" aria-label="What seniors are doing, page coming soon">
+      <span class="badge">Coming soon</span>
+      <div class="card-icon" aria-hidden="true">🔬</div>
+      <h2>What Are My Seniors Up To?</h2>
+      <p>Research labs, placements, PhD applications, and existing in a useful superposition.</p>
+    </article>
+
+    <a href="monsoon.html" class="card">
+      <div class="card-icon" aria-hidden="true">☔</div>
+      <h2>Surviving Monsoons</h2>
+      <p>Fluid dynamics in real life: rain, humidity, wet shoes and flooded shortcuts.</p>
+    </a>
+
+    <a href="transport.html" class="card">
+      <div class="card-icon" aria-hidden="true">🚆</div>
+      <h2>Getting to IIT Bombay</h2>
+      <p>Finding the least-action path from airports, railway stations and Mumbai local lines.</p>
+    </a>
+
+    <a href="clubs.html" class="card">
+      <span class="badge">New</span>
+      <div class="card-icon" aria-hidden="true">🎭</div>
+      <h2>Clubs and Student Life</h2>
+      <p>Explore cultural, technical and sports communities—and learn how to get involved.</p>
+    </a>
+
+    <a href="emergency.html" class="card card--danger">
+      <span class="badge">Essential</span>
+      <div class="card-icon" aria-hidden="true">🆘</div>
+      <h2>Emergency Contacts</h2>
+      <p>Who to call for security, medical emergencies, ambulance, fire and urgent support.</p>
+    </a>
+  </main>
+
+  <footer>
+    Student-made guide. For official rules, schedules and emergency information, always verify with IIT Bombay.
+  </footer>
+
+  <script>
+    const equations = ['E = mc²', 'F = ma', 'λ = h/p', 'iℏ∂Ψ/∂t = ĤΨ', 'dS ≥ 0', 'F = −kx'];
+    const container = document.querySelector('.particles');
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      for (let i = 0; i < 15; i += 1) {
+        const equation = document.createElement('span');
+        equation.textContent = equations[Math.floor(Math.random() * equations.length)];
+        equation.style.position = 'absolute';
+        equation.style.left = `${Math.random() * 100}vw`;
+        equation.style.top = `${Math.random() * 100}vh`;
+        equation.style.opacity = Math.random() * 0.17;
+        equation.style.fontSize = `${Math.random() * 20 + 10}px`;
+        equation.style.fontFamily = 'Georgia, serif';
+        equation.style.transform = `rotate(${Math.random() * 360}deg)`;
+        container.appendChild(equation);
+      }
+    }
+  </script>
+</body>
+</html>
